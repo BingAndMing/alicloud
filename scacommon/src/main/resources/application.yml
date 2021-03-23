@@ -1,0 +1,52 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: sca-common
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.223:8848
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: 127.0.0.1:8080  #这个时自己启动sentinel时给的端口号，默认时8080
+        port: 8719  #固定
+    alibaba:
+      seata:
+        tx-service-group: sca-common-group
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.105:3306/sca_common?serverTimezone=Asia/Shanghai
+    username: PLAT
+    password: PLAT_2019
+feign:
+  hystrix:
+    enabled: true  #feign调用时如果配置了fallback就会生效
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.cloud.sca.model
+#seata:
+#  enabled: true
+#  application-id: ${spring.application.name}
+#  tx-service-group: ${spring.application.name}-group
+#  enable-auto-data-source-proxy: true
+#  config:
+#    type: nacos
+#    nacos:
+#      namespace:
+#      serverAddr: 192.168.1.223:8848
+#      group: SEATA_GROUP
+#      userName: "nacos"
+#      password: "nacos"
+#  registry:
+#    type: nacos
+#    nacos:
+#      application: seata-server
+#      server-addr: 192.168.1.223:8848
+#      namespace:
+#      userName: "nacos"
+#      password: "nacos"
+logging:
+  level:
+    io.seata: INFO
